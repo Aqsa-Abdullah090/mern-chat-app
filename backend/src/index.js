@@ -20,7 +20,7 @@ app.use(express.json());
 app.use(cookieParser());
 app.use(
   cors({
-    origin: "https://mern-chat-app-b9a3.vercel.app/",
+    origin: "https://mern-chat-app-b9a3.vercel.app",
     credentials: true,
   })
 );
