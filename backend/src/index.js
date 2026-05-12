@@ -2,20 +2,19 @@ import express from "express";
 import dotenv from "dotenv";
 import cookieParser from "cookie-parser";
 import cors from "cors";
-
 import { connectDB } from "./lib/db.js";
 import authRoutes from "./routes/auth.route.js";
 import messageRoutes from "./routes/message.route.js";
 
 dotenv.config();
 
-const app = express(); // ✅ Use plain express, NOT from socket.js
+const app = express();
 
-const allowedOrigin = "https://mern-chat-app-omega-puce.vercel.app";
+const allowedOrigin = "https://mern-chat-app-ynkz.vercel.app";
 
-// Middlewares
 app.use(express.json({ limit: "10mb" }));
 app.use(cookieParser());
+
 app.use(cors({
   origin: allowedOrigin,
   credentials: true,
@@ -23,7 +22,6 @@ app.use(cors({
   allowedHeaders: ["Content-Type", "Authorization", "X-Requested-With", "Accept"],
 }));
 
-// Preflight
 app.use((req, res, next) => {
   res.header("Access-Control-Allow-Origin", allowedOrigin);
   res.header("Access-Control-Allow-Credentials", "true");
@@ -33,17 +31,14 @@ app.use((req, res, next) => {
   next();
 });
 
-// DB Connect (once)
 connectDB();
 
-// Routes
 app.use("/api/auth", authRoutes);
 app.use("/api/messages", messageRoutes);
 
-// Local dev only
 if (process.env.NODE_ENV !== "production") {
   const PORT = process.env.PORT || 5001;
   app.listen(PORT, () => console.log(`Server running on PORT: ${PORT}`));
 }
 
-export default app; // ✅ Vercel uses this
+export default app;
