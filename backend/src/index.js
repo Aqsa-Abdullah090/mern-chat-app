@@ -10,7 +10,7 @@ dotenv.config();
 
 const app = express();
 
-const allowedOrigin = "https://mern-chat-app-ynkz.vercel.app";
+const allowedOrigin = "https://mern-chat-app-omega-puce.vercel.app";
 
 app.use(express.json({ limit: "10mb" }));
 app.use(cookieParser());
